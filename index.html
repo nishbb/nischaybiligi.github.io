@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nischay Biligi — AI & Biomedical Researcher</title>
+  <meta name="description" content="Nischay Biligi — Graduate Researcher at CMU & UPMC. Building ML systems that decode chronic disease and accelerate precision medicine for real patients." />
+  <meta name="keywords" content="Nischay Biligi, CMU, biomedical engineering, AI healthcare, machine learning, proteomics, UPMC, precision medicine" />
+  <meta name="author" content="Nischay Biligi" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nischaybiligi.github.io/" />
+  <meta property="og:title" content="Nischay Biligi — AI & Biomedical Researcher" />
+  <meta property="og:description" content="CMU MS AIE/BME graduate researcher building ML systems that transform patient outcomes." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&h=630&fit=crop" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Cormorant Garamond (editorial serif) + Bricolage Grotesque (warm humanist sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --bg:       #141210;
+      --bg-2:     #1c1814;
+      --card:     #1f1b17;
+      --card-h:   #262119;
+      --border:   rgba(212,169,106,0.12);
+      --border-h: rgba(212,169,106,0.30);
+      --amber:    #d4a96a;
+      --amber-lt: #e8c98a;
+      --amber-dim:rgba(212,169,106,0.55);
+      --sage:     #8aab96;
+      --cream:    #f0ebe2;
+      --text-mid: #9a8f83;
+      --text-dim: #5c534a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* grain */
+    body::after {
+      content:''; position:fixed; inset:0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events:none; z-index:9998; opacity:0.7;
+    }
+
+    /* blobs */
+    .blob { position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .blob-a { background:rgba(212,169,106,0.07); }
+    .blob-s { background:rgba(138,171,150,0.05); }
+
+    /* type */
+    .serif { font-family:'Cormorant Garamond',Georgia,serif; }
+    h1,h2,h3 { font-family:'Cormorant Garamond',Georgia,serif; font-weight:400; }
+
+    .display {
+      font-family:'Cormorant Garamond',Georgia,serif;
+      font-size:clamp(3rem,8vw,6.8rem);
+      font-weight:300; line-height:0.94; letter-spacing:-0.025em; color:var(--cream);
+    }
+    .display em { font-style:italic; color:var(--amber-lt); }
+
+    .eyebrow {
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-size:0.68rem; font-weight:600; letter-spacing:0.18em;
+      text-transform:uppercase; color:var(--amber);
+    }
+    .sh {
+      font-family:'Cormorant Garamond',Georgia,serif;
+      font-size:clamp(1.9rem,3.5vw,3rem); font-weight:400; line-height:1.1; color:var(--cream);
+    }
+    .sh em { font-style:italic; color:var(--amber-lt); }
+
+    .rule { display:block; width:38px; height:1px; background:linear-gradient(90deg,var(--amber),transparent); margin:0.9rem 0 1.4rem; }
+    .rule.cx { margin-left:auto; margin-right:auto; }
+
+    /* nav */
+    #nav { position:fixed; top:0; left:0; right:0; z-index:500; padding:1.2rem 0; transition:background 0.4s,backdrop-filter 0.4s; }
+    #nav.scrolled { background:rgba(20,18,16,0.93); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+    .nav-i { max-width:1100px; margin:0 auto; padding:0 2rem; display:flex; align-items:center; justify-content:space-between; }
+    .logo { font-family:'Cormorant Garamond',Georgia,serif; font-size:1.3rem; font-weight:400; color:var(--cream); text-decoration:none; }
+    .logo span { color:var(--amber); }
+    .nl { display:flex; align-items:center; gap:2rem; }
+    .nla { font-size:0.73rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-mid); text-decoration:none; transition:color 0.2s; }
+    .nla:hover { color:var(--amber-lt); }
+
+    /* buttons */
+    .bp {
+      display:inline-flex; align-items:center; gap:0.45rem;
+      padding:0.7rem 1.7rem; background:var(--amber); color:var(--bg);
+      font-family:'Bricolage Grotesque',sans-serif; font-size:0.78rem; font-weight:600;
+      letter-spacing:0.06em; text-transform:uppercase; border-radius:2px;
+      text-decoration:none; border:none; cursor:pointer;
+      transition:background 0.2s,transform 0.2s,box-shadow 0.2s;
+    }
+    .bp:hover { background:var(--amber-lt); transform:translateY(-2px); box-shadow:0 8px 28px rgba(212,169,106,0.22); }
+
+    .bg {
+      display:inline-flex; align-items:center; gap:0.45rem;
+      padding:0.7rem 1.7rem; background:transparent; color:var(--cream);
+      font-family:'Bricolage Grotesque',sans-serif; font-size:0.78rem; font-weight:500;
+      letter-spacing:0.06em; text-transform:uppercase; border-radius:2px;
+      text-decoration:none; border:1px solid var(--border-h); cursor:pointer;
+      transition:border-color 0.2s,color 0.2s,transform 0.2s;
+    }
+    .bg:hover { border-color:var(--amber); color:var(--amber-lt); transform:translateY(-2px); }
+
+    /* cards */
+    .card {
+      background:var(--card); border:1px solid var(--border); border-radius:6px;
+      transition:border-color 0.3s,background 0.3s,transform 0.3s,box-shadow 0.3s;
+    }
+    .card:hover {
+      border-color:var(--border-h); background:var(--card-h);
+      transform:translateY(-3px);
+      box-shadow:0 14px 44px rgba(0,0,0,0.3),0 0 0 1px rgba(212,169,106,0.05);
+    }
+
+    /* tag */
+    .tag {
+      display:inline-block; padding:0.2rem 0.65rem;
+      background:rgba(212,169,106,0.07); border:1px solid rgba(212,169,106,0.18);
+      border-radius:2px; font-size:0.67rem; font-weight:600; letter-spacing:0.07em;
+      text-transform:uppercase; color:var(--amber-dim);
+    }
+    .tag-g { background:rgba(110,231,160,0.07); border-color:rgba(110,231,160,0.22); color:#6ee7a0; }
+    .tag-s { background:rgba(138,171,150,0.07); border-color:rgba(138,171,150,0.2); color:var(--sage); }
+
+    /* pill */
+    .pill {
+      display:inline-flex; align-items:center; gap:0.25rem;
+      padding:0.35rem 0.85rem; background:var(--card); border:1px solid var(--border);
+      border-radius:100px; font-size:0.77rem; color:var(--text-mid);
+      transition:border-color 0.2s,color 0.2s,transform 0.15s; cursor:default;
+    }
+    .pill:hover { border-color:var(--border-h); color:var(--amber-lt); transform:translateY(-1px); }
+
+    /* timeline */
+    .tl-wrap { position:relative; padding-left:1.75rem; }
+    .tl-line { position:absolute; left:0; top:8px; bottom:0; width:1px; background:linear-gradient(to bottom,var(--amber),transparent); }
+    .tl-dot { position:absolute; left:-5px; top:8px; width:11px; height:11px; background:var(--bg); border:1.5px solid var(--amber); border-radius:50%; box-shadow:0 0 8px rgba(212,169,106,0.35); }
+
+    /* reveal */
+    .rv { opacity:0; transform:translateY(20px); transition:opacity 0.7s ease,transform 0.7s ease; }
+    .rv.in { opacity:1; transform:none; }
+
+    /* section */
+    .sec { max-width:1100px; margin:0 auto; padding:6rem 2rem; position:relative; }
+    @media(max-width:640px){ .sec { padding:4rem 1.5rem; } }
+
+    /* 2-col grid */
+    .g2 { display:grid; grid-template-columns:1fr 2fr; gap:4rem; align-items:start; }
+    @media(max-width:768px){ .g2 { grid-template-columns:1fr; gap:2rem; } }
+
+    /* hero grid */
+    .hero-g { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
+    @media(max-width:768px){ .hero-g { grid-template-columns:1fr; gap:3rem; } }
+
+    /* stat strip */
+    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+    .stat-c { background:var(--card); padding:1.5rem; text-align:center; }
+    .stat-n { font-family:'Cormorant Garamond',Georgia,serif; font-size:2.4rem; font-weight:300; color:var(--amber-lt); line-height:1; margin-bottom:0.3rem; }
+    .stat-l { font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dim); }
+
+    /* photo */
+    .photo-frame { position:relative; display:block; width:100%; }
+    .photo-frame::before { content:''; position:absolute; inset:-1px; border-radius:6px; background:linear-gradient(135deg,rgba(212,169,106,0.35),transparent 55%,rgba(138,171,150,0.15)); z-index:0; }
+    .photo-inner { position:relative; z-index:1; width:100%; aspect-ratio:4/5; border-radius:5px; background:var(--card); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:4.5rem; font-weight:300; color:var(--amber-dim); overflow:hidden; }
+    .photo-badge { position:absolute; bottom:-1rem; left:-1rem; background:var(--card); border:1px solid var(--border-h); border-radius:4px; padding:0.7rem 1rem; display:flex; align-items:center; gap:0.55rem; z-index:2; box-shadow:0 8px 30px rgba(0,0,0,0.4); }
+    .bdot { width:7px; height:7px; border-radius:50%; background:#6ee7a0; box-shadow:0 0 8px rgba(110,231,160,0.6); animation:blink 2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* pull quote */
+    .pq { font-family:'Cormorant Garamond',Georgia,serif; font-size:clamp(1.2rem,2.2vw,1.6rem); font-weight:300; font-style:italic; color:var(--text-mid); line-height:1.6; border-left:2px solid var(--amber); padding-left:1.4rem; }
+
+    /* pub line */
+    .pub { border-left:2px solid var(--amber); padding-left:1.25rem; transition:border-color 0.3s; }
+    .pub:hover { border-color:var(--amber-lt); }
+
+    /* exp card accent */
+    .ec { position:relative; }
+    .ec::before { content:''; position:absolute; top:0; left:0; width:2px; height:100%; background:linear-gradient(to bottom,var(--amber),transparent); border-radius:2px; opacity:0; transition:opacity 0.3s; }
+    .ec:hover::before { opacity:1; }
+
+    /* project number */
+    .pn { font-family:'Cormorant Garamond',Georgia,serif; font-size:3.2rem; font-weight:300; color:var(--border-h); line-height:1; position:absolute; top:1rem; right:1.25rem; user-select:none; }
+
+    /* form */
+    .inp { width:100%; background:var(--card); border:1px solid var(--border); border-radius:4px; padding:0.8rem 1rem; color:var(--cream); font-family:'Bricolage Grotesque',sans-serif; font-size:0.88rem; outline:none; transition:border-color 0.2s,box-shadow 0.2s; }
+    .inp:focus { border-color:rgba(212,169,106,0.4); box-shadow:0 0 0 3px rgba(212,169,106,0.07); }
+    .inp::placeholder { color:var(--text-dim); }
+    .lbl { display:block; font-size:0.69rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-mid); margin-bottom:0.4rem; }
+
+    /* mobile menu */
+    #mob { display:none; position:fixed; inset:0; z-index:400; background:rgba(20,18,16,0.97); backdrop-filter:blur(24px); flex-direction:column; align-items:center; justify-content:center; gap:2.5rem; }
+    #mob.open { display:flex; }
+    #mob .nla { font-size:1.2rem; letter-spacing:0.1em; color:var(--cream); }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width:3px; }
+    ::-webkit-scrollbar-track { background:var(--bg); }
+    ::-webkit-scrollbar-thumb { background:rgba(212,169,106,0.25); border-radius:2px; }
+
+    /* animations */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+    .a1{animation:fadeUp 0.85s 0.1s ease both}
+    .a2{animation:fadeUp 0.85s 0.25s ease both}
+    .a3{animation:fadeUp 0.85s 0.4s ease both}
+    .a4{animation:fadeUp 0.85s 0.55s ease both}
+    .a5{animation:fadeUp 0.85s 0.7s ease both}
+
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .float { animation:float 7s ease-in-out infinite; }
+
+    @keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+    .spin { animation:spin 22s linear infinite; }
+
+    hr.div { border:none; border-top:1px solid var(--border); margin:0; }
+
+    /* skill cat heading */
+    .scat { font-size:0.67rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--amber); margin-bottom:0.8rem; display:block; }
+
+    /* ul-link */
+    .ull { color:var(--amber-dim); text-decoration:none; border-bottom:1px solid rgba(212,169,106,0.2); transition:color 0.2s,border-color 0.2s; }
+    .ull:hover { color:var(--amber-lt); border-color:var(--amber); }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════ -->
+<header id="nav" role="banner">
+  <div class="nav-i">
+    <a href="#hero" class="logo" aria-label="Home">Nischay<span>.</span></a>
+    <nav class="nl hidden md:flex" aria-label="Main navigation">
+      <a href="#about"        class="nla">About</a>
+      <a href="#experience"   class="nla">Experience</a>
+      <a href="#research"     class="nla">Research</a>
+      <a href="#skills"       class="nla">Skills</a>
+      <a href="#publications" class="nla">Publications</a>
+      <a href="#contact"      class="nla">Contact</a>
+      <!-- ↓ Replace href with path to your resume PDF -->
+      <a href="resume.pdf" download="Nischay_Biligi_Resume.pdf" class="bp" style="padding:0.5rem 1.1rem;font-size:0.7rem;" aria-label="Download resume PDF">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Resume
+      </a>
+    </nav>
+    <button id="hbtn" class="md:hidden flex flex-col gap-1.5 p-2 bg-transparent border-0 cursor-pointer" aria-label="Open menu" aria-expanded="false">
+      <span id="h1" style="display:block;width:22px;height:1.5px;background:var(--amber);transition:all 0.3s;"></span>
+      <span id="h2" style="display:block;width:22px;height:1.5px;background:var(--amber);transition:all 0.3s;"></span>
+      <span id="h3" style="display:block;width:14px;height:1.5px;background:var(--amber);transition:all 0.3s;"></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div id="mob" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <button id="cmob" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--amber);font-size:1.3rem;cursor:pointer;" aria-label="Close menu">✕</button>
+  <a href="#about"        class="nla" onclick="cM()">About</a>
+  <a href="#experience"   class="nla" onclick="cM()">Experience</a>
+  <a href="#research"     class="nla" onclick="cM()">Research</a>
+  <a href="#skills"       class="nla" onclick="cM()">Skills</a>
+  <a href="#publications" class="nla" onclick="cM()">Publications</a>
+  <a href="#contact"      class="nla" onclick="cM()">Contact</a>
+  <a href="resume.pdf" download class="bp" onclick="cM()">Download Resume</a>
+</div>
+
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div style="position:relative;overflow:hidden;">
+  <div class="blob blob-a" style="width:580px;height:580px;top:-120px;left:-180px;"></div>
+  <div class="blob blob-s" style="width:380px;height:380px;top:300px;right:-80px;"></div>
+
+  <div class="sec" id="hero" style="padding-top:8rem;padding-bottom:4rem;">
+    <div class="hero-g">
+
+      <!-- Text -->
+      <div>
+        <p class="eyebrow a1" style="margin-bottom:1.2rem;">CMU MS AIE/BME '27 &nbsp;·&nbsp; Pittsburgh, PA</p>
+        <h1 class="display a2">
+          Decoding<br>
+          <em>biology</em><br>
+          with AI.
+        </h1>
+        <span class="rule a3" style="margin-top:1.5rem;"></span>
+        <p class="a3" style="color:var(--text-mid);font-size:0.97rem;line-height:1.85;max-width:420px;margin-bottom:2rem;">
+          I'm a graduate researcher at <strong style="color:var(--cream);font-weight:500;">Carnegie Mellon &amp; UPMC</strong> building machine learning systems that turn complex biological data into answers that help real people get better treatment.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;" class="a4">
+          <a href="#research" class="bp">See my work</a>
+          <!-- ↓ Replace href with your resume PDF -->
+          <a href="resume.pdf" download="Nischay_Biligi_Resume.pdf" class="bg">Download Resume</a>
+          <!-- ↓ Replace with your LinkedIn URL -->
+          <a href="https://linkedin.com/in/nischay-biligi" target="_blank" rel="noopener noreferrer" class="bg" aria-label="LinkedIn (opens in new tab)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Photo -->
+      <div class="flex justify-center md:justify-end a5">
+        <div class="float" style="width:min(320px,100%);position:relative;">
+          <div class="photo-frame">
+            <div class="photo-inner" aria-label="Nischay Biligi — photo placeholder">
+              NB
+              <!--
+                ↓ Replace with your photo:
+                <img src="photo.jpg" alt="Nischay Biligi" style="width:100%;height:100%;object-fit:cover;border-radius:5px;">
+              -->
+            </div>
+          </div>
+          <!-- Live badge -->
+          <div class="photo-badge">
+            <div class="bdot" aria-hidden="true"></div>
+            <div>
+              <p style="font-size:0.7rem;font-weight:600;color:var(--cream);line-height:1.25;">Available for internships</p>
+              <p style="font-size:0.63rem;color:var(--text-dim);line-height:1.25;">Summer 2026</p>
+            </div>
+          </div>
+          <!-- Spinning ring -->
+          <div style="position:absolute;top:-22px;right:-22px;width:82px;height:82px;opacity:0.38;" aria-hidden="true">
+            <svg viewBox="0 0 82 82" class="spin"><path d="M41 5 A36 36 0 1 1 40.9 5" fill="none" stroke="var(--amber)" stroke-width="0.7" stroke-dasharray="4 7"/></svg>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:0.62rem;letter-spacing:0.12em;color:var(--amber);font-style:italic;">4.0 GPA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats rv" style="margin-top:4rem;">
+      <div class="stat-c">
+        <div class="stat-n">5K<span style="font-size:1.3rem;">+</span></div>
+        <div class="stat-l">Proteins Analyzed</div>
+      </div>
+      <div class="stat-c">
+        <div class="stat-n">3</div>
+        <div class="stat-l">Hospitals Deployed</div>
+      </div>
+      <div class="stat-c">
+        <div class="stat-n">4</div>
+        <div class="stat-l">Disease Verticals</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div" />
+
+
+<!-- ══ ABOUT ══════════════════════════════════════════════ -->
+<section id="about" style="position:relative;overflow:hidden;">
+  <div class="blob blob-a" style="width:450px;height:450px;bottom:-80px;right:-100px;"></div>
+  <div class="sec">
+    <div class="g2">
+      <!-- Sidebar -->
+      <div class="rv">
+        <p class="eyebrow">About</p>
+        <span class="rule"></span>
+        <p style="color:var(--text-dim);font-size:0.83rem;line-height:1.9;margin-bottom:1.5rem;">
+          I grew up fascinated by how living systems work — and frustrated by how slowly medicine moves. That gap is what drives my research: building the ML systems that close it.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:0.65rem;">
+          <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:var(--text-mid);"><span style="color:var(--amber);">📍</span>Pittsburgh, PA</div>
+          <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:var(--text-mid);"><span style="color:var(--amber);">🎓</span>CMU MS AIE/BME '27</div>
+          <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:var(--text-mid);"><span style="color:var(--amber);">🔬</span>UPMC Chandra Lab</div>
+          <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:var(--text-mid);"><span style="color:var(--amber);">⭐</span>GPA 4.0 / 4.0</div>
+          <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:var(--text-mid);"><span style="color:var(--amber);">🌏</span>VIT Vellore · IISc Bangalore</div>
+        </div>
+      </div>
+      <!-- Bio -->
+      <div class="rv" style="transition-delay:0.12s;">
+        <h2 class="sh" style="margin-bottom:1.5rem;">The kind of researcher<br>who <em>ships to production.</em></h2>
+        <p style="color:var(--text-mid);font-size:0.95rem;line-height:1.9;margin-bottom:1.2rem;">
+          At <strong style="color:var(--cream);font-weight:500;">UPMC's Chandra Lab</strong>, I'm leading the computational analysis of one of the most comprehensive protein panels available — the SomaScan 5K — across more than 5,000 patients in the COPDGene and SPIROMICS cohorts, looking for the molecular fingerprints that predict who will respond to treatment for emphysema.
+        </p>
+        <p style="color:var(--text-mid);font-size:0.95rem;line-height:1.9;margin-bottom:2rem;">
+          Before CMU, I spent two years at <strong style="color:var(--cream);font-weight:500;">HealSeq / IISc Bangalore</strong> building clinical AI tools now actively being tested in hospitals — a TB decision-support system fusing imaging, genomics, and socioeconomic data; a pulmonary platform that listens to cough sounds and reads chest X-rays. I care about going from research paper to real patient impact.
+        </p>
+        <blockquote class="pq">"Good science should improve someone's life. If it stays in a paper, it's not finished yet."</blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
+
+<!-- ══ EXPERIENCE ══════════════════════════════════════════════ -->
+<section id="experience" style="position:relative;overflow:hidden;">
+  <div class="blob blob-s" style="width:400px;height:400px;top:0;left:-130px;"></div>
+  <div class="sec">
+    <div class="g2">
+      <!-- Left -->
+      <div class="rv">
+        <p class="eyebrow">Career</p>
+        <span class="rule"></span>
+        <h2 class="sh">Where I've<br><em>worked.</em></h2>
+        <p style="color:var(--text-dim);font-size:0.83rem;line-height:1.85;margin-top:1rem;">Four years of progressive responsibility — from intern to independent researcher leading hospital-deployed AI systems.</p>
+      </div>
+      <!-- Timeline -->
+      <div class="tl-wrap">
+        <div class="tl-line" aria-hidden="true"></div>
+
+        <!-- 1 -->
+        <div style="position:relative;margin-bottom:2.25rem;" class="rv">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="card ec p-6">
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.6rem;margin-bottom:0.9rem;">
+              <div>
+                <h3 style="font-size:1.05rem;font-weight:400;color:var(--cream);margin-bottom:0.15rem;">Graduate Research Assistant</h3>
+                <p style="font-size:0.78rem;color:var(--amber-dim);">UPMC Chandra Lab · Carnegie Mellon University</p>
+              </div>
+              <span class="tag">Jan 2026 – Present</span>
+            </div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;">
+              <li style="display:flex;gap:0.6rem;font-size:0.85rem;color:var(--text-mid);line-height:1.75;"><span style="color:var(--amber);flex-shrink:0;margin-top:0.06rem;">›</span>Leading analysis of the <strong style="color:var(--cream);font-weight:500;">SomaScan 5,000-protein panel</strong> across 5,000+ participants in COPDGene &amp; SPIROMICS to identify who responds to lithium treatment for emphysema.</li>
+              <li style="display:flex;gap:0.6rem;font-size:0.85rem;color:var(--text-mid);line-height:1.75;"><span style="color:var(--amber);flex-shrink:0;margin-top:0.06rem;">›</span>Directing the full ML pipeline — data QC, differential expression, regression, clustering — with complete analytical ownership.</li>
+            </ul>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.9rem;"><span class="tag">Proteomics</span><span class="tag">R · Python</span><span class="tag">COPDGene</span><span class="tag">Biomarker Discovery</span></div>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div style="position:relative;margin-bottom:2.25rem;" class="rv" style="transition-delay:0.1s;">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="card ec p-6">
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.6rem;margin-bottom:0.9rem;">
+              <div>
+                <h3 style="font-size:1.05rem;font-weight:400;color:var(--cream);margin-bottom:0.15rem;">Research Scientist</h3>
+                <p style="font-size:0.78rem;color:var(--amber-dim);">HealSeq Precision Medicine · Indian Institute of Science, Bangalore</p>
+              </div>
+              <span class="tag">Aug 2024 – Aug 2025</span>
+            </div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;">
+              <li style="display:flex;gap:0.6rem;font-size:0.85rem;color:var(--text-mid);line-height:1.75;"><span style="color:var(--amber);flex-shrink:0;margin-top:0.06rem;">›</span>Built and <strong style="color:var(--cream);font-weight:500;">deployed to 3 hospitals</strong> a multimodal TB clinical decision support system integrating radiology, genomics, clinical records, and socioeconomic signals.</li>
+              <li style="display:flex;gap:0.6rem;font-size:0.85rem;color:var(--text-mid);line-height:1.75;"><span style="color:var(--amber);flex-shrink:0;margin-top:0.06rem;">›</span>Engineered an end-to-end pulmonary diagnostic platform combining speech-to-text reporting, cough sound CNN, lung auscultation AI, and chest X-ray classification with explainability built in.</li>
+              <li style="display:flex;gap:0.6rem;font-size:0.85rem;color:var(--text-mid);line-height:1.75;"><span style="color:var(--amber);flex-shrink:0;margin-top:0.06rem;">›</span>Presented at <strong style="color:var(--cream);font-weight:500;">Bengaluru Tech Summit 2024</strong> and recognised as Innovator at <strong style="color:var(--cream);font-weight:500;">India Innovation Summit 2025</strong>; mentored junior researchers in ML and biomarker discovery.</li>
+            </ul>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.9rem;"><span class="tag">Clinical AI</span><span class="tag">NLP</span><span class="tag">XAI</span><span class="tag">MLOps</span><span class="tag-g">Live · 3 Hospitals</span></div>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div style="position:relative;margin-bottom:2.25rem;" class="rv" style="transition-delay:0.2s;">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="card ec p-6">
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.6rem;margin-bottom:0.9rem;">
+              <div>
+                <h3 style="font-size:1.05rem;font-weight:400;color:var(--cream);margin-bottom:0.15rem;">Trainee Scientist</h3>
+                <p style="font-size:0.78rem;color:var(--amber-dim);">HealSeq Precision Medicine · IISc, Bangalore</p>
+              </div>
+              <span class="tag">Aug 2023 – Aug 2024</span>
+            </div>
+            <ul style="list-style:none;">
+              <li style="display:flex;gap:0.6rem;font-size:0.85rem;color:var(--text-mid);line-height:1.75;"><span style="color:var(--amber);flex-shrink:0;margin-top:0.06rem;">›</span>Collaborated on biomarker discovery via multi-omics analysis across <strong style="color:var(--cream);font-weight:500;">4 disease verticals</strong> — TB, Asthma, COPD, Breast Cancer — building ML-driven clinical scores that power personalised treatment selection.</li>
+            </ul>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.9rem;"><span class="tag">Multi-omics</span><span class="tag">Clinical Scoring</span><span class="tag">Biostatistics</span></div>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div style="position:relative;" class="rv" style="transition-delay:0.3s;">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="card ec p-6">
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.6rem;margin-bottom:0.9rem;">
+              <div>
+                <h3 style="font-size:1.05rem;font-weight:400;color:var(--cream);margin-bottom:0.15rem;">Research Intern</h3>
+                <p style="font-size:0.78rem;color:var(--amber-dim);">Chandra Lab · Dept. of Biochemistry, IISc, Bangalore</p>
+              </div>
+              <span class="tag">Jun – Aug 2023</span>
+            </div>
+            <ul style="list-style:none;">
+              <li style="display:flex;gap:0.6rem;font-size:0.85rem;color:var(--text-mid);line-height:1.75;"><span style="color:var(--amber);flex-shrink:0;margin-top:0.06rem;">›</span>Trained in structural bioinformatics under <strong style="color:var(--cream);font-weight:500;">Dr. Nagasuma Chandra</strong>, gaining hands-on expertise in SiteMotif, FLAPP, and PocketDepth for protein structure analysis.</li>
+            </ul>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.9rem;"><span class="tag">Structural Bioinformatics</span><span class="tag">IISc</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
+
+<!-- ══ RESEARCH ══════════════════════════════════════════════ -->
+<section id="research" style="position:relative;overflow:hidden;">
+  <div class="blob blob-a" style="width:420px;height:420px;bottom:0;right:-80px;"></div>
+  <div class="sec">
+    <div style="max-width:540px;margin-bottom:3.5rem;" class="rv">
+      <p class="eyebrow">Research &amp; Projects</p>
+      <span class="rule"></span>
+      <h2 class="sh">Things I've built<br>that <em>actually work.</em></h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.25rem;">
+
+      <div class="card p-6 rv" style="position:relative;overflow:hidden;">
+        <div class="pn" aria-hidden="true">01</div>
+        <span class="tag-s" style="margin-bottom:0.9rem;display:inline-block;">Active · UPMC</span>
+        <h3 style="font-size:1.15rem;font-weight:400;color:var(--cream);margin-bottom:0.65rem;line-height:1.3;">Proteomic Biomarkers<br>for Lung Disease</h3>
+        <p style="color:var(--text-dim);font-size:0.83rem;line-height:1.78;margin-bottom:1.1rem;">Analysing the SomaScan 5K panel across 5,000+ COPDGene &amp; SPIROMICS participants — one of the largest proteomic searches for emphysema treatment predictors.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">SomaScan 5K</span><span class="tag">Python · R</span><span class="tag">ML</span></div>
+      </div>
+
+      <div class="card p-6 rv" style="position:relative;overflow:hidden;transition-delay:0.08s;">
+        <div class="pn" aria-hidden="true">02</div>
+        <span class="tag-g" style="margin-bottom:0.9rem;display:inline-block;">Live · 3 Hospitals</span>
+        <h3 style="font-size:1.15rem;font-weight:400;color:var(--cream);margin-bottom:0.65rem;line-height:1.3;">TB Clinical Decision<br>Support System</h3>
+        <p style="color:var(--text-dim);font-size:0.83rem;line-height:1.78;margin-bottom:1.1rem;">Multimodal AI fusing radiology, genomics, clinical records, and socioeconomic data for TB prediction. Deployed and actively tested in 3 healthcare centres.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">Deep Learning</span><span class="tag">XAI</span><span class="tag">MLOps</span></div>
+      </div>
+
+      <div class="card p-6 rv" style="position:relative;overflow:hidden;transition-delay:0.16s;">
+        <div class="pn" aria-hidden="true">03</div>
+        <span class="tag" style="margin-bottom:0.9rem;display:inline-block;">Completed</span>
+        <h3 style="font-size:1.15rem;font-weight:400;color:var(--cream);margin-bottom:0.65rem;line-height:1.3;">All-in-One Pulmonary<br>Diagnostic Platform</h3>
+        <p style="color:var(--text-dim);font-size:0.83rem;line-height:1.78;margin-bottom:1.1rem;">Speech-to-text notes + cough sound CNN + lung auscultation AI + chest X-ray classification — one platform, explainability built in from day one.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">CNN</span><span class="tag">Audio ML</span><span class="tag">NLP</span></div>
+      </div>
+
+      <div class="card p-6 rv" style="position:relative;overflow:hidden;transition-delay:0.24s;">
+        <div class="pn" aria-hidden="true">04</div>
+        <span class="tag" style="margin-bottom:0.9rem;display:inline-block;">Academic · VIT</span>
+        <h3 style="font-size:1.15rem;font-weight:400;color:var(--cream);margin-bottom:0.65rem;line-height:1.3;">Drug Repurposing<br>for Mucormycosis</h3>
+        <p style="color:var(--text-dim);font-size:0.83rem;line-height:1.78;margin-bottom:1.1rem;">Identified 5 candidate drugs via in-silico screening against key <em>Rhizopus oryzae</em> targets — affordable options for a often-fatal fungal infection.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">Molecular Docking</span><span class="tag">CADD</span></div>
+      </div>
+
+      <div class="card p-6 rv" style="position:relative;overflow:hidden;transition-delay:0.32s;">
+        <div class="pn" aria-hidden="true">05</div>
+        <span class="tag" style="margin-bottom:0.9rem;display:inline-block;">Academic · VIT</span>
+        <h3 style="font-size:1.15rem;font-weight:400;color:var(--cream);margin-bottom:0.65rem;line-height:1.3;">Redesigning Psilocin<br>for Depression</h3>
+        <p style="color:var(--text-dim);font-size:0.83rem;line-height:1.78;margin-bottom:1.1rem;">Computationally modified psilocin to improve receptor selectivity — preserving antidepressant effects while reducing hallucinogenic risk.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">Mol. Dynamics</span><span class="tag">Receptor Selectivity</span></div>
+      </div>
+
+      <div class="card p-6 rv" style="position:relative;overflow:hidden;transition-delay:0.40s;">
+        <div class="pn" aria-hidden="true">06</div>
+        <span class="tag" style="margin-bottom:0.9rem;display:inline-block;">Completed</span>
+        <h3 style="font-size:1.15rem;font-weight:400;color:var(--cream);margin-bottom:0.65rem;line-height:1.3;">Precision Clinical Scoring<br>Across 4 Diseases</h3>
+        <p style="color:var(--text-dim);font-size:0.83rem;line-height:1.78;margin-bottom:1.1rem;">ML-driven severity &amp; treatment-response scores for TB, Asthma, COPD, and Breast Cancer using integrated multi-omics data.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">Multi-omics</span><span class="tag">Biostatistics</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
+
+<!-- ══ SKILLS ══════════════════════════════════════════════ -->
+<section id="skills" style="position:relative;">
+  <div class="sec">
+    <div class="g2">
+      <div class="rv">
+        <p class="eyebrow">Capabilities</p>
+        <span class="rule"></span>
+        <h2 class="sh">What I<br><em>know.</em></h2>
+        <p style="color:var(--text-dim);font-size:0.83rem;line-height:1.85;margin-top:1rem;">Spanning computation, biology, and everything in between — built through real projects, not just coursework.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.25rem;">
+
+        <div class="card p-5 rv">
+          <span class="scat">🤖 AI / Machine Learning</span>
+          <div style="display:flex;flex-wrap:wrap;gap:0.45rem;">
+            <span class="pill">Deep Learning</span><span class="pill">NLP</span><span class="pill">Explainable AI</span><span class="pill">MLOps</span><span class="pill">Regression</span><span class="pill">Clustering</span><span class="pill">Diff. Expression</span>
+          </div>
+        </div>
+
+        <div class="card p-5 rv" style="transition-delay:0.08s;">
+          <span class="scat">🧬 Bioinformatics</span>
+          <div style="display:flex;flex-wrap:wrap;gap:0.45rem;">
+            <span class="pill">Multi-omics</span><span class="pill">Proteomics</span><span class="pill">Genomics</span><span class="pill">Mol. Docking</span><span class="pill">Mol. Dynamics</span><span class="pill">CADD</span><span class="pill">Structural Bioinf.</span>
+          </div>
+        </div>
+
+        <div class="card p-5 rv" style="transition-delay:0.16s;">
+          <span class="scat">💻 Programming</span>
+          <div style="display:flex;flex-wrap:wrap;gap:0.45rem;">
+            <span class="pill">Python <small style="color:var(--amber);font-size:0.65rem;">Adv.</small></span><span class="pill">R <small style="color:var(--amber);font-size:0.65rem;">Adv.</small></span><span class="pill">Java</span><span class="pill">C++</span><span class="pill">MATLAB</span><span class="pill">SQL</span>
+          </div>
+        </div>
+
+        <div class="card p-5 rv" style="transition-delay:0.24s;">
+          <span class="scat">🛠 Data Infrastructure</span>
+          <div style="display:flex;flex-wrap:wrap;gap:0.45rem;">
+            <span class="pill">Apache Spark</span><span class="pill">Kafka</span><span class="pill">Neo4j</span><span class="pill">PyTorch</span><span class="pill">HuggingFace</span><span class="pill">Docker</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
+
+<!-- ══ PUBLICATIONS ══════════════════════════════════════════════ -->
+<section id="publications" style="position:relative;overflow:hidden;">
+  <div class="blob blob-s" style="width:350px;height:350px;top:0;right:-60px;"></div>
+  <div class="sec">
+    <div style="max-width:540px;margin-bottom:3.5rem;" class="rv">
+      <p class="eyebrow">Dissemination</p>
+      <span class="rule"></span>
+      <h2 class="sh">Publications &amp;<br><em>Conferences.</em></h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2rem;max-width:720px;">
+
+      <div class="pub rv">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.5rem;margin-bottom:0.4rem;">
+          <h3 style="font-size:0.98rem;font-weight:400;color:var(--cream);">Multi-omics Integration for Precision Clinical Scoring in Pulmonary Diseases</h3>
+          <span class="tag">In Preparation</span>
+        </div>
+        <p style="font-size:0.78rem;color:var(--amber-dim);margin-bottom:0.4rem;"><strong>Biligi N.</strong> et al. · HealSeq / IISc · 2025</p>
+        <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.75;">ML-driven clinical scoring across TB, Asthma, COPD, and Breast Cancer using multi-omics data integration for personalised treatment pathways.</p>
+      </div>
+
+      <div class="pub rv" style="transition-delay:0.1s;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.5rem;margin-bottom:0.4rem;">
+          <h3 style="font-size:0.98rem;font-weight:400;color:var(--cream);">Bengaluru Tech Summit 2024 — Exhibitor</h3>
+          <span class="tag">Conference · 2024</span>
+        </div>
+        <p style="font-size:0.78rem;color:var(--amber-dim);margin-bottom:0.4rem;"><strong>Nischay Biligi</strong> representing HealSeq Precision Medicine · Bengaluru, India</p>
+        <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.75;">Showcased HealSeq's AI-driven pulmonary diagnostic and TB decision-support systems to industry leaders and healthcare stakeholders.</p>
+      </div>
+
+      <div class="pub rv" style="transition-delay:0.2s;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.5rem;margin-bottom:0.4rem;">
+          <h3 style="font-size:0.98rem;font-weight:400;color:var(--cream);">India Innovation Summit 2025 — Innovator</h3>
+          <span class="tag">Summit · 2025</span>
+        </div>
+        <p style="font-size:0.78rem;color:var(--amber-dim);margin-bottom:0.4rem;"><strong>Nischay Biligi</strong> · HealSeq · India</p>
+        <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.75;">Recognised as an innovator in precision medicine and AI-driven diagnostics at India's premier national innovation summit.</p>
+      </div>
+
+      <div class="card p-5 rv" style="transition-delay:0.3s;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <p style="font-size:0.82rem;color:var(--text-mid);">More publications on the way — add your Google Scholar link here.</p>
+        <!-- ↓ Replace with your Google Scholar / ORCID URL -->
+        <a href="#" class="bg" style="padding:0.45rem 1rem;font-size:0.7rem;" aria-label="View Google Scholar profile">Google Scholar ↗</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
+
+<!-- ══ CONTACT ══════════════════════════════════════════════ -->
+<section id="contact" style="position:relative;overflow:hidden;">
+  <div class="blob blob-a" style="width:380px;height:380px;bottom:-60px;left:-80px;"></div>
+  <div class="sec">
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start;" class="g2">
+
+      <div class="rv">
+        <p class="eyebrow">Contact</p>
+        <span class="rule"></span>
+        <h2 class="sh">Let's talk<br><em>science.</em></h2>
+        <p style="color:var(--text-dim);font-size:0.9rem;line-height:1.9;margin:1.25rem 0 2rem;">Open to research collaborations, summer 2026 internship conversations, and cold emails from people who care about making medicine better. No request too small.</p>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <!-- ↓ Replace with your email -->
+          <a href="mailto:nischaysdbiligi@gmail.com" class="ull" style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;" aria-label="Send email">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            nischaysdbiligi@gmail.com
+          </a>
+          <!-- ↓ Replace with your LinkedIn URL -->
+          <a href="https://linkedin.com/in/nischay-biligi" target="_blank" rel="noopener noreferrer" class="ull" style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;" aria-label="LinkedIn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--amber)" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            linkedin.com/in/nischay-biligi
+          </a>
+          <a href="tel:+14123906465" class="ull" style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;" aria-label="Phone">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 12 19.79 19.79 0 01.47 3.44 2 2 0 012.44 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.41a16 16 0 006.72 6.72l.78-.78a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            +1 (412) 390-6465
+          </a>
+        </div>
+      </div>
+
+      <!-- ↓ Replace action URL: sign up at formspree.io → get your form ID → paste here -->
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="cf" class="rv" style="transition-delay:0.12s;" aria-label="Contact form">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+          <div><label for="fn" class="lbl">Name</label><input type="text" id="fn" name="name" class="inp" placeholder="Your name" required aria-required="true"></div>
+          <div><label for="fe" class="lbl">Email</label><input type="email" id="fe" name="email" class="inp" placeholder="you@example.com" required aria-required="true"></div>
+        </div>
+        <div style="margin-bottom:1rem;"><label for="fs" class="lbl">Subject</label><input type="text" id="fs" name="subject" class="inp" placeholder="Collaboration / Internship / Research idea"></div>
+        <div style="margin-bottom:1.5rem;"><label for="fm" class="lbl">Message</label><textarea id="fm" name="message" class="inp" rows="5" placeholder="Tell me what you're working on…" required aria-required="true" style="resize:vertical;"></textarea></div>
+        <button type="submit" class="bp" style="width:100%;justify-content:center;" aria-label="Send message">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send Message
+        </button>
+        <p id="fs-status" role="alert" aria-live="polite" style="text-align:center;margin-top:0.75rem;font-size:0.82rem;display:none;"></p>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ FOOTER ══════════════════════════════════════════════ -->
+<footer style="border-top:1px solid var(--border);padding:2.5rem 2rem;background:var(--bg);" role="contentinfo">
+  <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+    <div>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--cream);">Nischay<span style="color:var(--amber);">.</span></span>
+      <span style="font-size:0.72rem;color:var(--text-dim);margin-left:1rem;">© 2026 Nischay Biligi</span>
+    </div>
+    <p style="font-size:0.73rem;color:var(--text-dim);">Built with care in Pittsburgh, PA.</p>
+    <div style="display:flex;align-items:center;gap:1.25rem;">
+      <a href="https://linkedin.com/in/nischay-biligi" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="color:var(--amber);opacity:0.65;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.65">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <!-- ↓ Replace with your GitHub -->
+      <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub" style="color:var(--amber);opacity:0.65;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.65">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+      </a>
+      <a href="mailto:nischaysdbiligi@gmail.com" aria-label="Email" style="color:var(--amber);opacity:0.65;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.65">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ══ JS ══════════════════════════════════════════════ -->
+<script>
+// nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 24), { passive: true });
+
+// mobile menu
+const hbtn = document.getElementById('hbtn'), mob = document.getElementById('mob'), cmob = document.getElementById('cmob');
+const h1 = document.getElementById('h1'), h2 = document.getElementById('h2'), h3 = document.getElementById('h3');
+function oM() { mob.classList.add('open'); hbtn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; h1.style.transform='rotate(45deg) translate(5px,5px)'; h2.style.opacity='0'; h3.style.transform='rotate(-45deg) translate(3px,-4px)'; h3.style.width='22px'; }
+function cM() { mob.classList.remove('open'); hbtn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; h1.style.transform=h2.style.opacity=h3.style.transform=''; h3.style.width=''; }
+hbtn.addEventListener('click', () => mob.classList.contains('open') ? cM() : oM());
+cmob.addEventListener('click', cM);
+
+// scroll reveal
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+// smooth scroll with offset
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }); }
+  });
+});
+
+// contact form
+const cf = document.getElementById('cf'), fss = document.getElementById('fs-status');
+cf.addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = cf.querySelector('button[type="submit"]'), orig = btn.innerHTML;
+  btn.innerHTML = 'Sending…'; btn.disabled = true;
+  try {
+    const r = await fetch(cf.action, { method: 'POST', body: new FormData(cf), headers: { 'Accept': 'application/json' } });
+    if (r.ok) { fss.textContent = '✓ Message received — I\'ll be in touch within 24 hours.'; fss.style.color = 'var(--sage)'; cf.reset(); }
+    else throw new Error();
+  } catch { fss.textContent = '⚠ Something went wrong. Email me: nischaysdbiligi@gmail.com'; fss.style.color = '#f87171'; }
+  fss.style.display = 'block'; btn.innerHTML = orig; btn.disabled = false;
+});
+</script>
+
+</body>
+</html>
+
+<!--
+╔══════════════════════════════════════════════════════════════════════════════╗
+║   STEP-BY-STEP FREE DEPLOYMENT INSTRUCTIONS (2026)                          ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║                                                                              ║
+║  OPTION A — GITHUB PAGES (Recommended, ~2 min, free forever)                ║
+║  1. github.com → sign in → "+" → New repository                             ║
+║  2. Name: YOUR-USERNAME.github.io → Public → Create repository              ║
+║  3. "uploading an existing file" → drag index.html + resume.pdf             ║
+║  4. Commit changes                                                           ║
+║  5. Settings → Pages → Source: main → / (root) → Save                      ║
+║  6. Live in ~60s at https://YOUR-USERNAME.github.io                         ║
+║                                                                              ║
+║  OPTION B — NETLIFY (30 seconds, zero code)                                  ║
+║  1. netlify.com → sign up free                                               ║
+║  2. Drag your folder (index.html + resume.pdf) into the dashboard drop zone ║
+║  3. Live instantly — rename under Site settings                             ║
+║                                                                              ║
+║  OPTION C — VERCEL                                                           ║
+║  1. Push files to any GitHub repo                                            ║
+║  2. vercel.com → Add New Project → import → Deploy                          ║
+║                                                                              ║
+║  PERSONALISATION CHECKLIST                                                  ║
+║  □ Add photo: replace "NB" placeholder with <img> tag                       ║
+║  □ Replace all LinkedIn URLs with your real profile                         ║
+║  □ Replace GitHub URL with your real profile                                ║
+║  □ Replace Formspree ID in form action (formspree.io — free)                ║
+║  □ Add Google Scholar link in Publications                                  ║
+║  □ Place resume.pdf in same folder as index.html before uploading           ║
+║                                                                              ║
+║  CUSTOM DOMAIN (optional, ~$10/yr at Namecheap)                             ║
+║  GitHub Pages: Settings → Pages → Custom domain + add CNAME in registrar   ║
+║  Netlify: Site settings → Domain management → Add custom domain             ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+-->
